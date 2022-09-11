@@ -1,0 +1,22 @@
+public class LightningController {  
+	
+	@AuraEnabled
+    public static List<Contact> fetchContact(String searchString){
+        System.debug('searchString: '+searchString);
+        List<Contact> contactRecordToSearch = new List <Contact>();
+        if(searchString != ''){
+            String query='SELECT Id, Name , Phone , Email, AccountId From Contact WHERE Account.NAME LIKE\''+ '%'+searchString+'%\'';
+                contactRecordToSearch = Database.query(query);
+        }
+        return contactRecordToSearch;
+    }
+    
+    @AuraEnabled
+    public static void deleteRecord(String recordId){
+        if(recordId != null){
+            Contact con = new Contact();
+            con.Id = recordId;
+            delete con;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+({
+    helperMethod : function(component, event, helper) {
+        var accountName = component.get('v.AccountName');
+        var action = component.get("c.fetchContact");
+        action.setParams({ 'searchString' : accountName });
+        action.setCallback(this, function(response) { 	
+            var state = response.getState();   
+            if (state === "SUCCESS") {
+                component.set('v.ListContact', response.getReturnValue());
+            }
+        });
+        $A.enqueueAction(action);
+    }
+})

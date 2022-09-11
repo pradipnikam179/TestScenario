@@ -1,0 +1,23 @@
+<aura:component controller='LightningController' implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <aura:attribute name="AccountName" type="String"/>
+    <aura:attribute name="ListContact" type="Contact[]"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="truthy" type="boolean" default="false"/>
+    
+    
+    <lightning:card title="Test Scenario">
+        <div style = "margin-left: 15px;margin-right: 15px;">
+            <lightning:input name="Account Name" value="{! v.AccountName }" placeholder="Search Account" label="Account Name" />
+            <br/>
+            <lightning:button variant="brand-outline" label="Related Account Contact" title="Related Account Contact" onclick="{! c.handleClick }" />
+            <br/>
+            <br/>
+            <aura:if isTrue="{!v.truthy}">
+                <lightning:datatable data="{!v.ListContact}" 
+                                     columns="{!v.columns}" 
+                                     keyField="Id"
+                                     onrowaction="{!c.handleRowAction}"/>
+            </aura:if>
+        </div>
+    </lightning:card>
+</aura:component>
